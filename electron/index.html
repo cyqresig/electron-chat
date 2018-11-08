@@ -3,27 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>多人聊天室</title>
+    <title>测试 demo</title>
     <link rel="stylesheet" href="./style.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <ul class="pages">
-        <li class="chat page">
-            <div class="chatArea">
-                <ul class="messages"></ul>
+    <div style="display: flex; flex-direction: row; height: 100%">
+        <div style="width: 400px; height: 100%; box-sizing: border-box; padding: 30px; background: #ccc;">
+            <webview id="browser" src="https://m.dianping.com" style="width: 100%; height: 100%"></webview>
+        </div>
+        <div style="flex: 1; height: 100%; background: yellow; display: flex; flex-direction: column;">
+            <div id="editor" style="flex: 1">
+                editor
             </div>
-            <input class="inputMessage" placeholder="Type here..." />
-        </li>
-        <li class="login page">
-            <div class="form">
-                <h3 class="title">What's your nickname?</h3>
-                <input class="usernameInput" type="text" maxlength="14" />
+            <div id="dev-tools" style="height: 300px;">
+                <webview id="devtools" style="width: 100%; height: 100%; background: #fff;"></webview>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 
-    <script src="./renderer.js"></script>
+    <!--<script src="./renderer.js"></script>-->
+    <!--<script src="./test.js"></script>-->
+    <script>
+
+        const browserView = document.getElementById('browser')
+        const devtoolsView = document.getElementById('devtools')
+        browserView.addEventListener('dom-ready', () => {
+            const browser = browserView.getWebContents()
+            browser.setDevToolsWebContents(devtoolsView.getWebContents())
+            browser.openDevTools()
+        })
+    </script>
 </body>
 
 </html>

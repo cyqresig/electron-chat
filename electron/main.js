@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, globalShortcut, clipboard, Menu } = require('electron')
+const { app, BrowserWindow, globalShortcut, clipboard, Menu, webContents } = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -7,10 +7,69 @@ let mainWindow
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 800, height: 600 })
+    mainWindow = new BrowserWindow({ width: 1190, height: 800 })
 
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
+
+    // const child = new BrowserWindow({ titleBarStyle: 'hidden', parent: mainWindow, width: 300, height: 600 })
+    // child.loadFile('child.html')
+
+    // let child = new BrowserWindow({parent: mainWindow, modal: true, show: false, width: 300, height: 200 })
+    // child.loadURL('https://github.com')
+    // child.once('ready-to-show', () => {
+    //     child.show()
+    // })
+
+    // child.webContents.openDevTools({ mode: 'bottom' })
+
+    // devtools = new BrowserWindow({titleBarStyle: 'hidden', parent: mainWindow, width: 500, height: 200, x: 300, y: 400})
+    // mainWindow.webContents.setDevToolsWebContents(devtools.webContents)
+    // mainWindow.webContents.openDevTools({mode: 'detach'})
+
+    // mainWindow.webContents.debugger.attach('1.1');
+    mainWindow.webContents.openDevTools({mode: 'undocked'});
+
+    // setTimeout(() => {
+    //     // console.dir(webContents.getAllWebContents(), {depth: 3});
+    //     webContents.getAllWebContents().forEach((browser, index) => {
+    //         console.log('browser = ', index, browser)
+    //         if ('setDevToolsWebContents' in browser) {
+    //             // if (browser.history[0] === 'https://m.dianping.com/') {
+    //             //     mainWindow.webContents.setDevToolsWebContents(browser.webContents)
+    //             //     mainWindow.webContents.openDevTools({mode: 'detach'})
+    //             // }
+    //             console.log('is browser -> ', index);
+    //         }
+    //     });
+    //
+    //
+    //     let debugWb;
+    //     let devToolWb;
+    //     const browsers = webContents.getAllWebContents();
+    //     browsers.forEach((browser, index) => {
+    //         if (browser.history[0] === 'https://m.dianping.com/') {
+    //             debugWb = browser;
+    //             console.log('debugWb = ', index)
+    //         } else if (browser.history[0].indexOf('/child.html') >= 0) {
+    //             devToolWb = browser;
+    //             console.log('devToolWb = ', index)
+    //         }
+    //     });
+    //
+    //     if (debugWb && devToolWb) {
+    //         debugWb.webContents.setDevToolsWebContents(devToolWb.webContents);
+    //         // debugWb.webContents.setDevToolsWebContents(mainWindow.webContents);
+    //         // debugWb.webContents.openDevTools({ mode: 'detach' });
+    //         debugWb.webContents.openDevTools();
+    //     }
+    //
+    //     // mainWindow.webContents.setDevToolsWebContents(devtools.webContents)
+    //     // mainWindow.webContents.openDevTools({mode: 'detach'})
+    //     // console.log(webContents.fromId('wb2'));
+    // }, 5000);
+
+
 
     const template = [{
             label: 'Edit',
